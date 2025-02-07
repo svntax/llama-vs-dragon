@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0446lo8vlpec"]
+[gd_scene load_steps=6 format=3 uid="uid://c0446lo8vlpec"]
 
 [ext_resource type="Script" path="res://Gameplay.gd" id="1_f805m"]
 [ext_resource type="Theme" uid="uid://upmn1qp8c6b8" path="res://Chat/GuiTheme.tres" id="2_usgha"]
+[ext_resource type="Texture2D" uid="uid://61k8spm6b5vh" path="res://Dragon/red_dragon.png" id="3_mcymk"]
+[ext_resource type="Texture2D" uid="uid://dseamg0lqj0w5" path="res://Dragon/cave.png" id="3_nighi"]
+
+[sub_resource type="NobodyWhoSampler" id="NobodyWhoSampler_nxrvw"]
+temperature = 1.1
 
 [node name="Gameplay" type="Node2D"]
 script = ExtResource("1_f805m")
@@ -11,6 +16,7 @@ model_path = "res://models/gemma-2-2b-it-Q4_K_M.gguf"
 
 [node name="NobodyWhoChat" type="NobodyWhoChat" parent="." node_paths=PackedStringArray("model_node")]
 model_node = NodePath("../NobodyWhoModel")
+sampler = SubResource("NobodyWhoSampler_nxrvw")
 system_prompt = "You are the deadly dragon Ignis, guarding a cave full of treasure. You are hundreds of years old and grow weary of guarding the treasure, but will keep guarding it and eat any intruders. You are prideful and arrogant. It is difficult for intruders to obtain any treasure and escape alive.
 
 You see a llama enter your cave. Confused, you are willing to speak with the llama before deciding to eat them.
@@ -44,11 +50,11 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -128.0
 offset_top = -56.0
-offset_right = 128.0
+offset_right = 24.0
 offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Who dares trespass in... a llama?"
+text = "Who dares trespass into my... a llama?"
 
 [node name="ChatContainer" type="PanelContainer" parent="UI/Control"]
 layout_mode = 0
@@ -73,6 +79,21 @@ offset_bottom = 188.0
 layout_mode = 2
 text = "Talk"
 horizontal_alignment = 1
+
+[node name="ImageContainer" type="PanelContainer" parent="UI/Control"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 64.0
+offset_right = 276.0
+offset_bottom = 148.0
+
+[node name="TextureRect" type="TextureRect" parent="UI/Control/ImageContainer"]
+layout_mode = 2
+texture = ExtResource("3_nighi")
+
+[node name="TextureRect2" type="TextureRect" parent="UI/Control/ImageContainer"]
+layout_mode = 2
+texture = ExtResource("3_mcymk")
 
 [node name="ChatHistory" type="ScrollContainer" parent="UI/Control"]
 unique_name_in_owner = true
@@ -120,4 +141,17 @@ offset_right = 310.0
 offset_bottom = 32.0
 text = "History"
 
+[node name="QuitButton" type="Button" parent="UI/Control"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 52.0
+offset_bottom = 32.0
+text = "Quit"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(224, 104)
+texture = ExtResource("3_mcymk")
+
 [connection signal="pressed" from="UI/Control/HistoryButton" to="." method="_on_history_button_pressed"]
+[connection signal="pressed" from="UI/Control/QuitButton" to="." method="_on_quit_button_pressed"]

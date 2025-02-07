@@ -46,3 +46,6 @@ func _on_history_button_pressed() -> void:
 	if chat_history.visible:
 		var scrollbar = chat_history.get_v_scroll_bar()
 		chat_history.scroll_vertical = scrollbar.max_value
+
+func _on_quit_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://TitleScreen.tscn")
