@@ -1,0 +1,16 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://upmn1qp8c6b8"]
+
+[ext_resource type="FontFile" uid="uid://dmmnt5i5hnhx2" path="res://Chat/Ruler 9.ttf" id="1_m4oxp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shg35"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[resource]
+default_font = ExtResource("1_m4oxp")
+default_font_size = 16
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_shg35")

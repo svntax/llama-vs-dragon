@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://duec7s4afsvsk"]
+
+[node name="Message" type="Label"]
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 23.0
+autowrap_mode = 3

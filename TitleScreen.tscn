@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://cit4pt3g8tq1b"]
+
+[ext_resource type="Script" path="res://TitleScreen.gd" id="1_u2q7s"]
+[ext_resource type="Theme" uid="uid://upmn1qp8c6b8" path="res://Chat/GuiTheme.tres" id="1_yo43x"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_yo43x")
+script = ExtResource("1_u2q7s")
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.0
+offset_top = -64.0
+offset_right = 61.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Llama vs. Dragon"
+
+[node name="Start" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.5
+offset_top = 48.0
+offset_right = 74.5
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press Enter to Start"
