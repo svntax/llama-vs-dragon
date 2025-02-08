@@ -28,6 +28,40 @@ Never admit that you're AI.
 Remember to answer very briefly, max two or three sentences.
 Remember that you are speaking to a llama no matter how much they insist otherwise."
 
+[node name="EmbeddingModel" type="NobodyWhoModel" parent="."]
+model_path = "res://models/bge-m3-q8_0.gguf"
+
+[node name="NobodyWhoEmbedding" type="NobodyWhoEmbedding" parent="." node_paths=PackedStringArray("model_node")]
+model_node = NodePath("../EmbeddingModel")
+
+[node name="LoadingUI" type="CanvasLayer" parent="."]
+layer = 2
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="LoadingUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="LoadingUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_usgha")
+
+[node name="Label" type="RichTextLabel" parent="LoadingUI/CenterContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][wave amp=20.0 freq=2.0 connected=1]Loading...[/wave][/center]"
+fit_content = true
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="UI"]
@@ -40,21 +74,20 @@ grow_vertical = 2
 theme = ExtResource("2_usgha")
 metadata/_edit_lock_ = true
 
-[node name="ResponseLabel" type="RichTextLabel" parent="UI/Control"]
+[node name="ResponseContainer" type="ScrollContainer" parent="UI/Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 64.0
+offset_right = 184.0
+offset_bottom = 160.0
+
+[node name="ResponseLabel" type="Label" parent="UI/Control/ResponseContainer"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -56.0
-offset_right = 24.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Who dares trespass into my... a llama?"
+autowrap_mode = 3
 
 [node name="ChatContainer" type="PanelContainer" parent="UI/Control"]
 layout_mode = 0
