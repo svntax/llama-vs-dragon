@@ -11,6 +11,8 @@ const MessageScene = preload("res://Chat/Message.tscn")
 @onready var response_label: Label = %ResponseLabel
 @onready var chat_history: ScrollContainer = %ChatHistory
 @onready var chat_history_container: VBoxContainer = %ChatHistoryContainer
+@onready var game_over_container: PanelContainer = %GameOverContainer
+@onready var game_over_status: Label = %GameOverStatus
 
 @onready var action_embeddings
 
@@ -18,6 +20,9 @@ const MessageScene = preload("res://Chat/Message.tscn")
 
 func _ready() -> void:
 	loading_ui.show()
+	
+	var rng = RandomNumberGenerator.new()
+	nobody_who_chat.sampler.seed = rng.randi()
 	await get_tree().create_timer(0.5).timeout
 	nobody_who_embedding.start_worker()
 	nobody_who_chat.start_worker()
@@ -55,9 +60,16 @@ func _on_response_finished(response: String) -> void:
 		for sentence in sentences:
 			var clean_sentence = sentence.get_string().strip_edges()
 			if clean_sentence.is_empty(): continue
+			if clean_sentence.contains("?"):
+				# Questions don't mean an action was taken
+				continue
 			var action = await match_sentence(clean_sentence)
 			if action != null:
-				print(action)
+				game_over_container.show()
+				if action == "died":
+					game_over_status.text = "You died to the dragon!"
+				elif action == "give_treasure":
+					game_over_status.text = "You obtained treasure!"
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("send_message"):
@@ -119,18 +131,21 @@ func match_sentence(sentence: String):
 				most_similar = action
 				max_similarity = similarity
 	
-	var threshold = 0.85
-	print("Max Similarity: " + str(max_similarity) + "\nAction: " + most_similar)
+	var threshold = 0.8
 	if max_similarity > threshold:
+		print(most_similar + " - " + str(max_similarity) + " - " + sentence)
 		return most_similar
 	
 	return null
 
 func _on_history_button_pressed() -> void:
 	chat_history.visible = not chat_history.visible
-	if chat_history.visible:
-		var scrollbar = chat_history.get_v_scroll_bar()
-		chat_history.scroll_vertical = scrollbar.max_value
+	await get_tree().process_frame
+	var scrollbar = chat_history.get_v_scroll_bar()
+	chat_history.scroll_vertical = scrollbar.max_value
 
 func _on_quit_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://TitleScreen.tscn")
+
+func _on_end_button_pressed() -> void:
+	game_over_container.hide()

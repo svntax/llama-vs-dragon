@@ -22,7 +22,6 @@ system_prompt = "You are the deadly dragon Ignis, guarding a cave full of treasu
 You see a llama enter your cave. Confused, you are willing to speak with the llama before deciding to eat them.
 
 Never break character. Always stay in the role of the dragon.
-Never describe actions.
 Never repeat yourself.
 Never admit that you're AI.
 Remember to answer very briefly, max two or three sentences.
@@ -182,9 +181,56 @@ offset_right = 52.0
 offset_bottom = 32.0
 text = "Quit"
 
+[node name="GameOverContainer" type="PanelContainer" parent="UI/Control"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(160, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/GameOverContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/GameOverContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Header" type="Label" parent="UI/Control/GameOverContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="GameOverStatus" type="Label" parent="UI/Control/GameOverContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "You obtained treasure!"
+horizontal_alignment = 1
+
+[node name="EndButton" type="Button" parent="UI/Control/GameOverContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(224, 104)
 texture = ExtResource("3_mcymk")
 
 [connection signal="pressed" from="UI/Control/HistoryButton" to="." method="_on_history_button_pressed"]
 [connection signal="pressed" from="UI/Control/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/Control/GameOverContainer/MarginContainer/VBoxContainer/EndButton" to="." method="_on_end_button_pressed"]
