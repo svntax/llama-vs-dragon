@@ -228,10 +228,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(224, 104)
-texture = ExtResource("3_mcymk")
-
 [connection signal="pressed" from="UI/Control/HistoryButton" to="." method="_on_history_button_pressed"]
 [connection signal="pressed" from="UI/Control/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="UI/Control/GameOverContainer/MarginContainer/VBoxContainer/EndButton" to="." method="_on_end_button_pressed"]
