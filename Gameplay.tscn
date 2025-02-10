@@ -99,6 +99,7 @@ offset_bottom = 230.0
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 40)
 layout_mode = 2
+context_menu_enabled = false
 
 [node name="ChatLabelContainer" type="PanelContainer" parent="UI/Control"]
 layout_mode = 0
