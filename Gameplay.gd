@@ -35,7 +35,6 @@ func _ready() -> void:
 	loading_ui.hide()
 
 func add_message_to_history(message: String) -> void:
-	action_embeddings = await generate_action_embeddings()
 	var message_label = MessageScene.instantiate()
 	message_label.set_text(message)
 	chat_history_container.add_child(message_label)
